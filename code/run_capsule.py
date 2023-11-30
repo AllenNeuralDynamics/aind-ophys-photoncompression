@@ -242,7 +242,7 @@ if __name__ == "__main__":
         )
       
     print(cropped_video.shape)
-    
+
     qs = compute_sensitivity(cropped_video.transpose(1, 2, 0), count_weight_gamma=1)
     print('{f}\nQuantal size: {sensitivity:5.1f}\nIntercept: {zero_level:5.1f}\n'.format(f=figure_filename, **qs))
 
@@ -268,4 +268,4 @@ if __name__ == "__main__":
     ax.axis(False)
     ax.set_title('mean fluorescence')
     ax.title.set_size(8)
-    fig.savefig(output_dir.parent / str(figure_filename) + '-A.png', dpi=300)
+    fig.savefig(output_dir.parent / 'A.png', dpi=300)
