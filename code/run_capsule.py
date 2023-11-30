@@ -266,14 +266,13 @@ if __name__ == "__main__":
 
     matplotlib.rc('font', family='sans', size=8)
 
+    # Panel A
     m = cropped_video.mean(axis=0)
     _ = ax.imshow(m, vmin=0, vmax=np.quantile(m, 0.999), cmap='gray')
     ax.axis(False)
     ax.set_title('mean fluorescence')
     ax.title.set_size(8)
     fig.savefig(os.path.join(output_dir, 'A.png'), dpi=300)
-
-
 
 
     # Panel B
@@ -318,7 +317,7 @@ if __name__ == "__main__":
     ax.title.set_size(8)
     fig.savefig(os.path.join(output_dir, 'B.png'), dpi=300)
 
-
+    # Panel C
     fig = plt.figure(figsize=(1.8*1.3, 2.6))
     matplotlib.rc('font', family='sans', size=8)
     gs = fig.add_gridspec(
@@ -337,6 +336,7 @@ if __name__ == "__main__":
     ax.title.set_size(8)
     fig.savefig(os.path.join(output_dir, 'C.png'), dpi=300)
 
+    # Panel E
     # segmentation and trace extraction
     flux = (scan - qs['zero_level']) / qs['sensitivity']
 
@@ -358,10 +358,9 @@ if __name__ == "__main__":
     ax.axis(False)
     ax.set_title('max flux (pixel$^{-1}$frame$^{-1}$)');
     ax.title.set_size(8)
-
     fig.savefig(os.path.join(output_dir, 'E.png'), dpi=300)
 
-
+    # Panel F
     # make compression lookup tables
     zero = np.int16(np.round(qs['zero_level']))
     LUT1, LUT2 = make_luts(
