@@ -212,7 +212,7 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--end_frame", type=int, default=1001, help=("End of movie block to use for main analysis")
+        "--end_frame", type=int, default=999, help=("End of movie block to use for main analysis")
     )
 
     # Parse command-line arguments
