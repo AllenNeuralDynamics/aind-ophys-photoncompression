@@ -267,4 +267,4 @@ if __name__ == "__main__":
     ax.axis(False)
     ax.set_title('mean fluorescence')
     ax.title.set_size(8)
-    fig.savefig(output_dir.parent / 'A.png', dpi=300)
+    fig.savefig(os.path.join(output_dir, 'A.png'), dpi=300)
