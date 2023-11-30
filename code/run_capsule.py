@@ -268,3 +268,48 @@ if __name__ == "__main__":
     ax.set_title('mean fluorescence')
     ax.title.set_size(8)
     fig.savefig(os.path.join(output_dir, 'A.png'), dpi=300)
+
+
+
+
+    # Panel B
+    from matplotlib.ticker import FormatStrFormatter
+    matplotlib.rc('font', family='sans', size=8)
+
+    x = np.arange(qs["min_intensity"], qs["max_intensity"])
+
+    fig = plt.figure(figsize=(2.2, 2.8))
+    gs = fig.add_gridspec(
+        2, 1, height_ratios=(5, 1),
+        left=0.08, right=0.75, bottom=0.15, top=0.85, hspace = 0.05)
+
+    ah = fig.add_subplot(gs[1])
+    ah.yaxis.tick_right()
+    ah.plot(x/binning, counts, 'k')
+    ah.spines['top'].set_visible(False)
+    ah.spines['right'].set_visible(False)
+    #ah.spines['bottom'].set_visible(False)
+    ah.spines['left'].set_visible(False)
+    ah.set_ylabel('density')
+    ah.set_xlabel('intensity')
+    ah.set_yticks([0])
+    ah.grid(True)
+
+    ax = fig.add_subplot(gs[0])
+    ax.yaxis.tick_right()
+    fit = qs["model"].predict(x.reshape(-1, 1))
+    ax.scatter(x/binning, np.float64(np.minimum(fit[-1]*2, qs["variance"])/binning), s=1, color='k', alpha=0.5)
+    ax.plot(x / binning, fit / binning, 'red', lw=1, alpha=1)
+
+    ax.yaxis.set_major_formatter(FormatStrFormatter('%1.0e'))
+    ax.spines['bottom'].set_visible(True)
+    plt.setp(ax.get_xticklabels(), visible=False)
+
+    ax.grid(True)
+    ax.set_ylabel('variance')
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.set_title('sensitivity={sensitivity:0.1f}; zero level={zero_level:0.0f}'.format(**qs))
+    ax.title.set_size(8)
+    fig.savefig(os.path.join(output_dir, 'B.png'), dpi=300)
