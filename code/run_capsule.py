@@ -191,7 +191,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-o", "--output-dir", type=str, help="Output directory", default="/results/"
     )
-    
+
     parser.add_argument(
         "--crop",
         type=list,
@@ -206,7 +206,7 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--end_frame", type=int, default=10000, help=("End of movie block to use for main analysis")
+        "--end_frame", type=int, default=1000, help=("End of movie block to use for main analysis")
     )
 
     # Parse command-line arguments
@@ -241,7 +241,8 @@ if __name__ == "__main__":
             end_frame=args.end_frame,
         )
       
-
+    print(cropped_video.shape)
+    
     qs = compute_sensitivity(cropped_video.transpose(1, 2, 0), count_weight_gamma=1)
     print('{f}\nQuantal size: {sensitivity:5.1f}\nIntercept: {zero_level:5.1f}\n'.format(f=figure_filename, **qs))
 
@@ -252,3 +253,19 @@ if __name__ == "__main__":
     metrics['counts'] = qs['counts']
 
     print(metrics)
+
+    fig = plt.figure(figsize=(1.8, 2.6))
+    gs = fig.add_gridspec(
+        1, 1,
+        left=0.0, right=1.0, bottom=0.0, top=0.9)
+
+    ax = fig.add_subplot(gs[0])
+
+    matplotlib.rc('font', family='sans', size=8)
+
+    m = cropped_video.mean(axis=0)
+    _ = ax.imshow(m, vmin=0, vmax=np.quantile(m, 0.999), cmap='gray')
+    ax.axis(False)
+    ax.set_title('mean fluorescence')
+    ax.title.set_size(8)
+    fig.savefig(output_dir.parent / str(figure_filename) + '-A.png', dpi=300)
