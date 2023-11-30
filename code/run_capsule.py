@@ -344,3 +344,45 @@ if __name__ == "__main__":
     ax.set_title('coefficient of variation')
     ax.title.set_size(8)
     fig.savefig(os.path.join(output_dir, 'C.png'), dpi=300)
+
+
+    # segmentation and trace extraction
+    flux = (scan - qs['zero_level']) / qs['sensitivity']
+
+    activity_map = (flux[::2,:,:]+flux[1::2,:,:]).max(axis=0)/2 - flux.mean(axis=0)  # 
+    mask =  activity_map > activity_map.max() * 0.5
+    labels = ndimage.label(mask)[0]
+
+    sizes = np.array([np.sum(labels==i) for i in np.unique(labels)])
+    labels[np.logical_or(sizes > 22, sizes < 20)[labels]] = 0
+
+    uniq_labels = np.unique(labels)[1:]
+    traces = np.stack([flux[:,labels == label].sum(axis=1) for label in uniq_labels]) 
+
+    fig = plt.figure(figsize=(1.8, 2.6))
+    matplotlib.rc('font', family='sans', size=8)
+    gs = fig.add_gridspec(
+        1, 1,
+        left=0.0, right=1, bottom=0.0, top=0.9)
+    ax = fig.add_subplot(gs[0])
+
+    # segmentation
+    im = activity_map
+    hsv = np.minimum(
+        1, 
+        np.stack((
+            np.ones_like(im)*0.3, # hue 
+            (labels > 0) * 0.4,  # saturation
+            (1.1 + 0.0 * (labels > 0)) * im / im.max()  # value
+        ), axis=-1))
+    ax.imshow(hsv_to_rgb(hsv));
+    for i, (y, x) in enumerate(ndimage.center_of_mass(im, labels, np.unique(labels)[1:]),1):
+        ax.annotate(str(i), (x, y), (x+5, y+30), color='yellow', fontsize=8, alpha=0.8, 
+                    arrowprops=dict(
+                        facecolor='yellow', edgecolor='yellow', 
+                        arrowstyle='->', lw=0.5, alpha=1.0))
+    ax.axis(False)
+
+    ax.set_title('cell segmentation');
+    ax.title.set_size(8)
+    fig.savefig(os.path.join(output_dir, 'D.png'), dpi=300)
