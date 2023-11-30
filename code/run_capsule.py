@@ -369,10 +369,40 @@ if __name__ == "__main__":
     ax.set_title('max flux (pixel$^{-1}$frame$^{-1}$)');
     ax.title.set_size(8)
 
-    for i, (y, x) in enumerate(ndimage.center_of_mass(im, labels, np.unique(labels)[1:]),1):
-        ax.annotate(str(i), (x, y), (x+5, y+30), color='white', fontsize=8, alpha=1.0, 
-                    arrowprops=dict(
-                        facecolor='white', edgecolor='white', 
-                        arrowstyle='->', lw=1, alpha=1.0))
-
     fig.savefig(os.path.join(output_dir, 'E.png'), dpi=300)
+
+
+    # make compression lookup tables
+    zero = np.int16(np.round(qs['zero_level']))
+    LUT1, LUT2 = compress.make_luts(
+        zero_level=0, 
+        sensitivity=qs['sensitivity'],
+        input_max=scan.max() - zero,
+        beta=0.5
+    )
+
+    fig, axx = plt.subplots(2, 2, figsize=(10, 10))
+    axx = iter(axx.flatten())
+
+    ax = next(axx)
+    ax.plot(LUT1)
+    ax.grid(True)
+    ax.set_title('compressing LUT')
+
+    ax = next(axx)
+    ax.plot(LUT2[LUT1])
+    ax.plot(np.r_[:LUT1.size], np.r_[:LUT1.size], 'k:')
+    ax.grid(True)
+    ax.set_title('compression/decompression transform')
+
+    ax = next(axx)
+    frame = np.maximum(0, np.minimum(scan[300,:,:], LUT1.size-1))
+    ax.imshow(frame, cmap=cc.cm.CET_R4)
+    ax.axis(False)
+    ax.set_title('original frame')
+
+    ax = next(axx)
+    ax.imshow(LUT2[LUT1[frame]], cmap=cc.cm.CET_R4)
+    ax.axis(False)
+    ax.set_title('compressed-decompressed')
+    fig.savefig(os.path.join(output_dir, 'F.png'), dpi=300)

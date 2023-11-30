@@ -1,4 +1,4 @@
-# hash:sha256:6ae96bd84a5a29069fb8e3c115d360ed612cd0fe2c95205a96bed363a5a24fea
+# hash:sha256:7e26d702781b85470a6d5bd18344a474d2fe3230c111bfa34ef829456756c6d4
 FROM registry.codeocean.allenneuraldynamics.org/codeocean/jupyterlab:3.0.9-miniconda4.9.2-python3.8-ubuntu20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -9,7 +9,7 @@ COPY git-askpass /
 
 RUN pip3 install -U --no-cache-dir \
     argparse \
-    colorcet \
+    colorcet==3.0.1 \
     h5py==3.10.0 \
     imageio==2.33.0 \
     matplotlib==3.7.4 \
