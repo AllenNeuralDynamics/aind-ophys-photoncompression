@@ -345,7 +345,9 @@ if __name__ == "__main__":
     ax.set_title('coefficient of variation')
     ax.title.set_size(8)
     fig.savefig(os.path.join(output_dir, 'C.png'), dpi=300)
-    
+
+    # segmentation and trace extraction
+    flux = (scan - qs['zero_level']) / qs['sensitivity']
 
     fig = plt.figure(figsize=(1.8 * 1.3, 2.6))
     matplotlib.rc('font', family='sans', size=8)
@@ -372,5 +374,4 @@ if __name__ == "__main__":
                         facecolor='white', edgecolor='white', 
                         arrowstyle='->', lw=1, alpha=1.0))
 
-
-    fig.savefig(str(figure_filename) + '-E.png', dpi=300)
+    fig.savefig(os.path.join(output_dir, 'E.png'), dpi=300)
