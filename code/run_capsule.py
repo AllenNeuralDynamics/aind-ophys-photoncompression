@@ -248,7 +248,8 @@ if __name__ == "__main__":
             start_frame=args.start_frame,
             end_frame=args.end_frame,
         )
-      
+    
+    scan = cropped_video
     print(cropped_video.shape)
 
     qs = compute_sensitivity(cropped_video.transpose(1, 2, 0), count_weight_gamma=1)
@@ -386,3 +387,32 @@ if __name__ == "__main__":
     ax.set_title('cell segmentation');
     ax.title.set_size(8)
     fig.savefig(os.path.join(output_dir, 'D.png'), dpi=300)
+
+
+    fig = plt.figure(figsize=(1.8 * 1.3, 2.6))
+    matplotlib.rc('font', family='sans', size=8)
+    gs = fig.add_gridspec(
+        1, 1, 
+        left=0.0, right=1.0/1.3, bottom=0.0, top=0.9)
+    ax = fig.add_subplot(gs[0])
+
+    im = flux.max(axis=0)
+    mx = np.quantile(im, 0.999)
+    im[im<0] = np.nan
+    img = ax.imshow(im, vmin=-0.0*mx, vmax=mx, cmap=cc.cm.CET_R4)
+
+    cax = fig.add_axes([1.03/1.3, 0.2, 0.04, 0.6])
+
+    plt.colorbar(img, cax=cax, shrink=0.5)
+    ax.axis(False)
+    ax.set_title('max flux (pixel$^{-1}$frame$^{-1}$)');
+    ax.title.set_size(8)
+
+    for i, (y, x) in enumerate(ndimage.center_of_mass(im, labels, np.unique(labels)[1:]),1):
+        ax.annotate(str(i), (x, y), (x+5, y+30), color='white', fontsize=8, alpha=1.0, 
+                    arrowprops=dict(
+                        facecolor='white', edgecolor='white', 
+                        arrowstyle='->', lw=1, alpha=1.0))
+
+
+    fig.savefig(str(figure_filename) + '-E.png', dpi=300)
