@@ -261,7 +261,6 @@ if __name__ == "__main__":
     metrics['counts'] = qs['zero_level']
     metrics['counts'] = qs['counts']
 
-    q = qs['sensitivity']
     b = qs['zero_level']
     counts = qs['counts']
 
