@@ -8,7 +8,7 @@ from scipy import ndimage, signal
 from pathlib import Path
 from sklearn.linear_model import HuberRegressor as Regressor
 import imageio as io
-
+import matplotlib
 
 def subsample_and_crop_video(data_pointer, subsample, crop, start_frame=0, end_frame=-1):
     """Subsample and crop a video, cache results. Also functions as a data_pointer load.
