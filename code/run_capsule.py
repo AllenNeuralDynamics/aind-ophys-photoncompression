@@ -254,7 +254,7 @@ if __name__ == "__main__":
     cropped_video = cropped_video[:, ::2, ::2] + cropped_video[:, 1::2, 1::2] + cropped_video[:, 1::2, ::2] + cropped_video[:, ::2, 1::2]
     print(cropped_video.shape)
 
-    qs = compute_sensitivity(cropped_video.transpose(1, 2, 0), count_weight_gamma=0.01)
+    qs = compute_sensitivity(cropped_video.transpose(1, 2, 0), count_weight_gamma=0.1)
 
     print(qs)
 
