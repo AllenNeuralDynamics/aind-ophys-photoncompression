@@ -196,7 +196,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--binning",
         type=int,
-        default=1,
+        default=2,
     )
 
     parser.add_argument(
