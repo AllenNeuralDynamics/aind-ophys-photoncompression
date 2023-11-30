@@ -244,7 +244,7 @@ if __name__ == "__main__":
     print(cropped_video.shape)
 
     qs = compute_sensitivity(cropped_video.transpose(1, 2, 0), count_weight_gamma=1)
-    print('{f}\nQuantal size: {sensitivity:5.1f}\nIntercept: {zero_level:5.1f}\n'.format(f=figure_filename, **qs))
+    print('Quantal size: {sensitivity:5.1f}\nIntercept: {zero_level:5.1f}\n'.format(f=**qs))
 
     metrics = {}
 
