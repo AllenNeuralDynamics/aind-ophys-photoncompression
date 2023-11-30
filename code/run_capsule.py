@@ -188,7 +188,7 @@ if __name__ == "__main__":
 
     input_dir = Path(args.input_dir)
     output_dir = Path(args.output_dir)
-    h5_file = [i for i in list(input_dir.glob("*/*")) if "registered.h5" in str(i)][0]
+    h5_file = [i for i in list(input_dir.glob("*/*")) if "output.h5" in str(i)][0]
     experiment_id = h5_file.name.split("_")[0]
     output_dir = make_output_directory(output_dir, experiment_id)
     processing_json_fp = h5_file.parent / "processing.json"
