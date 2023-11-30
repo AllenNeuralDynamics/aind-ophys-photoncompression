@@ -220,7 +220,7 @@ if __name__ == "__main__":
 
     # General settings
     binning = args.binning
-    
+
     # name of the dataset in the hdf5 file
     dataset_name = "data"
 
@@ -293,7 +293,7 @@ if __name__ == "__main__":
 
     ah = fig.add_subplot(gs[1])
     ah.yaxis.tick_right()
-    ah.plot(x/binning, counts, 'k')
+    ah.plot(x/binning, metrics['counts'], 'k')
     ah.spines['top'].set_visible(False)
     ah.spines['right'].set_visible(False)
     #ah.spines['bottom'].set_visible(False)
