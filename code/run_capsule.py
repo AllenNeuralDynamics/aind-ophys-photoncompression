@@ -255,16 +255,7 @@ if __name__ == "__main__":
 
     qs = compute_sensitivity(cropped_video.transpose(1, 2, 0), count_weight_gamma=1)
 
-    metrics = {}
-
-    metrics['sensitivity'] = qs['sensitivity']
-    metrics['counts'] = qs['zero_level']
-    metrics['counts'] = qs['counts']
-
-    b = qs['zero_level']
-    counts = qs['counts']
-
-    print(metrics)
+    print(qs)
 
     fig = plt.figure(figsize=(1.8, 2.6))
     gs = fig.add_gridspec(
@@ -298,7 +289,7 @@ if __name__ == "__main__":
 
     ah = fig.add_subplot(gs[1])
     ah.yaxis.tick_right()
-    ah.plot(x/binning, metrics['counts'], 'k')
+    ah.plot(x/binning, qs['counts'], 'k')
     ah.spines['top'].set_visible(False)
     ah.spines['right'].set_visible(False)
     #ah.spines['bottom'].set_visible(False)
@@ -335,7 +326,7 @@ if __name__ == "__main__":
         left=0.0, right=1.0/1.3, bottom=0.0, top=0.9)
     ax = fig.add_subplot(gs[0])
     v = ((cropped_video[1:,:,:].astype('float64') - cropped_video[:-1,:,:]) ** 2/2).mean(axis=0)
-    imx = np.stack(((m-b)/qs['sensitivity'], v/qs['sensitivity']/qs['sensitivity'], (m-b)/qs['sensitivity']), axis=-1)
+    imx = np.stack(((m-qs['zero_level'])/qs['sensitivity'], v/qs['sensitivity']/qs['sensitivity'], (m-qs['zero_level'])/qs['sensitivity']), axis=-1)
     img = ax.imshow(np.minimum(1, np.sqrt(0.01 + np.maximum(0, imx/np.quantile(imx, 0.9999))) - 0.1), cmap='PiYG')
 
     cax = fig.add_axes([1.03/1.3, 0.2, 0.04, 0.6])
