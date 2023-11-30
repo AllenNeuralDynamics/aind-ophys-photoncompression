@@ -258,7 +258,8 @@ if __name__ == "__main__":
     metrics['sensitivity'] = qs['sensitivity']
     metrics['counts'] = qs['zero_level']
     metrics['counts'] = qs['counts']
-
+    b = qs['zero_level']
+    
     print(metrics)
 
     fig = plt.figure(figsize=(1.8, 2.6))
