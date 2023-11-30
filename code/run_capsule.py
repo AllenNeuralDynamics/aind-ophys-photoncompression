@@ -191,6 +191,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "-o", "--output-dir", type=str, help="Output directory", default="/results/"
     )
+    
+    parser.add_argument(
+        "--crop",
+        type=list,
+        default=(30, 30),
+        help=("cropped area of movie to use for analysis. Useful to remove" " edge effects"),
+    )
 
     # This is to constrain the analysis to a subset of frames
     # to reduce cost and increase speed
@@ -214,12 +221,12 @@ if __name__ == "__main__":
     h5_file = [i for i in list(input_dir.glob("*/*")) if "output.h5" in str(i)][0]
     experiment_id = h5_file.name.split("_")[0]
     output_dir = make_output_directory(output_dir, experiment_id)
-    processing_json_fp = h5_file.parent / "processing.json"
+    # processing_json_fp = h5_file.parent / "processing.json"
 
-    with open(processing_json_fp, "r") as j:
-        data = json.load(j)
+    # with open(processing_json_fp, "r") as j:
+    #    data = json.load(j)
 
-    frame_rate = data["data_processes"][0]["parameters"]["movie_frame_rate_hz"]
+    frame_rate = 10 # data["data_processes"][0]["parameters"]["movie_frame_rate_hz"]
     
     with h5py.File(h5_file, "r") as h5_pointer:
         data_pointer = h5_pointer[dataset_name]
