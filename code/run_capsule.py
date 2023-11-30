@@ -407,7 +407,7 @@ if __name__ == "__main__":
     ax.set_title('compressed-decompressed')
     fig.savefig(os.path.join(output_dir, 'F.png'), dpi=300)
 
-    compressed = compress.lookup(scan - zero, LUT1)
+    compressed = lookup(scan - zero, LUT1)
     gif_path = str(figure_filename) + '.gif'
     compress.save_movie(compressed, gif_path, scale=255//np.max(compressed))        
     print(f'Compression ratio: {np.prod(scan.shape)*2 / os.path.getsize(gif_path):0.2f}')
