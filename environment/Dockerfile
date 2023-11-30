@@ -1,4 +1,4 @@
-# hash:sha256:115a08462e9b1ee6861afcf59e3ff5936901e0fee0675b26328a17fc7c0f850d
+# hash:sha256:d29c2f10da601885cc561231a9d1fb5c19441cd5465f4982f302ad0ca54a4999
 FROM registry.codeocean.allenneuraldynamics.org/codeocean/jupyterlab:3.0.9-miniconda4.9.2-python3.8-ubuntu20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -12,5 +12,5 @@ RUN pip3 install -U --no-cache-dir \
     h5py \
     matplotlib \
     numpy \
-    scipy \
-    sklearn
+    scikit-learn \
+    scipy
