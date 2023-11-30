@@ -336,7 +336,7 @@ if __name__ == "__main__":
         left=0.0, right=1.0/1.3, bottom=0.0, top=0.9)
     ax = fig.add_subplot(gs[0])
     v = ((cropped_video[1:,:,:].astype('float64') - cropped_video[:-1,:,:]) ** 2/2).mean(axis=0)
-    imx = np.stack(((m-b)/q, v/q/q, (m-b)/q), axis=-1)
+    imx = np.stack(((m-b)/qs['sensitivity'], v/qs['sensitivity']/qs['sensitivity'], (m-b)/qs['sensitivity']), axis=-1)
     img = ax.imshow(np.minimum(1, np.sqrt(0.01 + np.maximum(0, imx/np.quantile(imx, 0.9999))) - 0.1), cmap='PiYG')
 
     cax = fig.add_axes([1.03/1.3, 0.2, 0.04, 0.6])
