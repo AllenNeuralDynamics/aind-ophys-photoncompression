@@ -193,6 +193,12 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
+        "--binning",
+        type=int,
+        default=1,
+    )
+
+    parser.add_argument(
         "--crop",
         type=list,
         default=(30, 30),
@@ -211,8 +217,10 @@ if __name__ == "__main__":
 
     # Parse command-line arguments
     args = parser.parse_args()
-    # General settings
 
+    # General settings
+    binning = args.binning
+    
     # name of the dataset in the hdf5 file
     dataset_name = "data"
 
