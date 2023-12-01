@@ -272,8 +272,6 @@ if __name__ == "__main__":
     ax.axis(False)
     ax.set_title('mean fluorescence')
     ax.title.set_size(5)
-    fig.savefig(os.path.join(output_dir, 'A.png'), dpi=300)
-
 
     # Panel B
     from matplotlib.ticker import FormatStrFormatter
@@ -314,7 +312,6 @@ if __name__ == "__main__":
     ax.spines['left'].set_visible(False)
     ax.set_title('sensitivity={sensitivity:0.1f}; zero level={zero_level:0.0f}'.format(**qs))
     ax.title.set_size(5)
-    fig.savefig(os.path.join(output_dir, 'B.png'), dpi=300)
 
     # Panel C
     gs = fig.add_gridspec(
@@ -331,7 +328,6 @@ if __name__ == "__main__":
     ax.axis(False)
     ax.set_title('coefficient of variation')
     ax.title.set_size(5)
-    fig.savefig(os.path.join(output_dir, 'C.png'), dpi=300)
 
     # Panel D
     # segmentation and trace extraction
@@ -353,7 +349,6 @@ if __name__ == "__main__":
     ax.axis(False)
     ax.set_title('max flux (pixel$^{-1}$frame$^{-1}$)');
     ax.title.set_size(5)
-    fig.savefig(os.path.join(output_dir, 'D.png'), dpi=300)
 
     # Panel E
     # make compression lookup tables
@@ -392,7 +387,7 @@ if __name__ == "__main__":
     ax.imshow(LUT2[LUT1[frame]], cmap=cc.cm.CET_R4)
     ax.axis(False)
     ax.set_title('compressed-decompressed')
-    fig.savefig(os.path.join(output_dir, 'F.png'), dpi=300)
+    fig.savefig(os.path.join(output_dir, 'all_panels.png'), dpi=300)
 
     compressed = lookup(scan - zero, LUT1)
 
