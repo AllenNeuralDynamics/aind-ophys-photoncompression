@@ -337,7 +337,7 @@ if __name__ == "__main__":
     ax.title.set_size(8)
     fig.savefig(os.path.join(output_dir, 'C.png'), dpi=300)
 
-    # Panel E
+    # Panel D
     # segmentation and trace extraction
     flux = (scan - qs['zero_level']) / qs['sensitivity']
 
@@ -359,9 +359,9 @@ if __name__ == "__main__":
     ax.axis(False)
     ax.set_title('max flux (pixel$^{-1}$frame$^{-1}$)');
     ax.title.set_size(8)
-    fig.savefig(os.path.join(output_dir, 'E.png'), dpi=300)
+    fig.savefig(os.path.join(output_dir, 'D.png'), dpi=300)
 
-    # Panel F
+    # Panel E
     # make compression lookup tables
     zero = np.int16(np.round(qs['zero_level']))
     LUT1, LUT2 = make_luts(
