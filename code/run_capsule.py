@@ -378,6 +378,7 @@ if __name__ == "__main__":
     ax.plot(LUT2[LUT1])
     ax.plot(np.r_[:LUT1.size], np.r_[:LUT1.size], 'k:')
     ax.grid(True)
+    ax.yaxis.set_label_position("right")
     ax.set_title('comp/decomp. transform')
 
     ax = fig.add_subplot(gs[2])
