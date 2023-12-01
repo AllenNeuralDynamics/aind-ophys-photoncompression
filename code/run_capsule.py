@@ -367,7 +367,7 @@ if __name__ == "__main__":
 
     gs = fig.add_gridspec(
         2, 2, 
-        left=0.60, right=0.9, bottom=0.05, top=0.85, height_ratios = [2, 1])
+        left=0.60, right=0.9, bottom=0.05, top=0.85, height_ratios = [2, 1], hspace=0.3)
 
     ax = fig.add_subplot(gs[0])
     ax.plot(LUT1)
