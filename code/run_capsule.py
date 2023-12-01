@@ -267,7 +267,7 @@ if __name__ == "__main__":
     # Panel A
     gs = gridspec.GridSpecFromSubplotSpec(
     1, 1,
-    left=0.0, right=1.0, bottom=0.0, top=0.9, subplot_spec=gs0[0])
+    left=0.0, right=1.0, bottom=0.0, top=0.9, subplot_spec=ground_grid[0])
 
     ax = fig.add_subplot(gs[0])
 
@@ -283,7 +283,7 @@ if __name__ == "__main__":
 
     # Panel B
     gs = gridspec.GridSpecFromSubplotSpec(2, 1, height_ratios=(5, 1),
-        left=0.08, right=0.75, bottom=0.15, top=0.85, hspace = 0.05, subplot_spec=gs0[1])
+        left=0.08, right=0.75, bottom=0.15, top=0.85, hspace = 0.05, subplot_spec=ground_grid[1])
 
     x = np.arange(qs["min_intensity"], qs["max_intensity"])
 
