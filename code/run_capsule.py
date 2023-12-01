@@ -332,7 +332,7 @@ if __name__ == "__main__":
     cbar.ax.set_yticklabels(['<< 1', '1', '>> 1'])  
     ax.axis(False)
     ax.set_title('coefficient of variation')
-    ax.title.set_size(8)
+    ax.title.set_size(5)
     fig.savefig(os.path.join(output_dir, 'C.png'), dpi=300)
 
     # Panel D
@@ -355,7 +355,7 @@ if __name__ == "__main__":
     plt.colorbar(img, cax=cax, shrink=0.5)
     ax.axis(False)
     ax.set_title('max flux (pixel$^{-1}$frame$^{-1}$)');
-    ax.title.set_size(8)
+    ax.title.set_size(5)
     fig.savefig(os.path.join(output_dir, 'D.png'), dpi=300)
 
     # Panel E
@@ -371,7 +371,6 @@ if __name__ == "__main__":
     gs = fig.add_gridspec(
         2, 2, 
         left=0.55, right=0.95, bottom=0.05, top=0.95)
-
 
     ax = fig.add_subplot(gs[0])
     ax.plot(LUT1)
