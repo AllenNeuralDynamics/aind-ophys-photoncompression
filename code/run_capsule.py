@@ -11,6 +11,7 @@ import imageio as io
 import matplotlib
 import colorcet as cc
 from matplotlib.ticker import FormatStrFormatter
+import matplotlib.gridspec as gridspec
 
 def subsample_and_crop_video(data_pointer, subsample, crop, start_frame=0, end_frame=-1):
     """Subsample and crop a video, cache results. Also functions as a data_pointer load.
