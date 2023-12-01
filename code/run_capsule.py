@@ -318,7 +318,6 @@ if __name__ == "__main__":
     fig.savefig(os.path.join(output_dir, 'B.png'), dpi=300)
 
     # Panel C
-    matplotlib.rc('font', family='sans', size=8)
     gs = fig.add_gridspec(
         1, 1, 
         left=0.30, right=0.45, bottom=0.55, top=0.95)
@@ -339,7 +338,6 @@ if __name__ == "__main__":
     # segmentation and trace extraction
     flux = (scan - qs['zero_level']) / qs['sensitivity']
 
-    matplotlib.rc('font', family='sans', size=8)
     gs = fig.add_gridspec(
         1, 1, 
         left=0.3, right=0.45, bottom=0.05, top=0.45)
