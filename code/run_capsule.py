@@ -318,11 +318,10 @@ if __name__ == "__main__":
     fig.savefig(os.path.join(output_dir, 'B.png'), dpi=300)
 
     # Panel C
-    fig = plt.figure(figsize=(1.8*1.3, 2.6))
     matplotlib.rc('font', family='sans', size=8)
     gs = fig.add_gridspec(
         1, 1, 
-        left=0.0, right=1.0/1.3, bottom=0.0, top=0.9)
+        left=0.30, right=0.45, bottom=0.55, top=0.95)
     ax = fig.add_subplot(gs[0])
     v = ((cropped_video[1:,:,:].astype('float64') - cropped_video[:-1,:,:]) ** 2/2).mean(axis=0)
     imx = np.stack(((m-qs['zero_level'])/qs['sensitivity'], v/qs['sensitivity']/qs['sensitivity'], (m-qs['zero_level'])/qs['sensitivity']), axis=-1)
@@ -340,11 +339,10 @@ if __name__ == "__main__":
     # segmentation and trace extraction
     flux = (scan - qs['zero_level']) / qs['sensitivity']
 
-    fig = plt.figure(figsize=(1.8 * 1.3, 2.6))
     matplotlib.rc('font', family='sans', size=8)
     gs = fig.add_gridspec(
         1, 1, 
-        left=0.0, right=1.0/1.3, bottom=0.0, top=0.9)
+        left=0.3, right=0.45, bottom=0.05, top=0.45)
     ax = fig.add_subplot(gs[0])
 
     im = flux.max(axis=0)
@@ -370,7 +368,10 @@ if __name__ == "__main__":
         beta=0.5
     )
 
-    fig, axx = plt.subplots(2, 2, figsize=(10, 10))
+    axx = fig.add_gridspec(
+        2, 2, 
+        left=0.55, right=0.95, bottom=0.05, top=0.95)
+
     axx = iter(axx.flatten())
 
     ax = next(axx)
