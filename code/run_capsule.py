@@ -372,26 +372,25 @@ if __name__ == "__main__":
         2, 2, 
         left=0.55, right=0.95, bottom=0.05, top=0.95)
 
-    axx = iter(axx.flatten())
 
-    ax = next(axx)
+    ax = axx[0]
     ax.plot(LUT1)
     ax.grid(True)
     ax.set_title('compressing LUT')
 
-    ax = next(axx)
+    ax = axx[1]
     ax.plot(LUT2[LUT1])
     ax.plot(np.r_[:LUT1.size], np.r_[:LUT1.size], 'k:')
     ax.grid(True)
     ax.set_title('compression/decompression transform')
 
-    ax = next(axx)
+    ax = axx[2]
     frame = np.maximum(0, np.minimum(scan[300,:,:], LUT1.size-1))
     ax.imshow(frame, cmap=cc.cm.CET_R4)
     ax.axis(False)
     ax.set_title('original frame')
 
-    ax = next(axx)
+    ax = axx[3]
     ax.imshow(LUT2[LUT1[frame]], cmap=cc.cm.CET_R4)
     ax.axis(False)
     ax.set_title('compressed-decompressed')
