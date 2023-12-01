@@ -10,6 +10,7 @@ from sklearn.linear_model import HuberRegressor as Regressor
 import imageio as io
 import matplotlib
 import colorcet as cc
+from matplotlib.ticker import FormatStrFormatter
 
 def subsample_and_crop_video(data_pointer, subsample, crop, start_frame=0, end_frame=-1):
     """Subsample and crop a video, cache results. Also functions as a data_pointer load.
@@ -259,63 +260,62 @@ if __name__ == "__main__":
     print(qs)
 
     fig = plt.figure(figsize=(1.8, 2.6))
-    gs = fig.add_gridspec(
-        1, 1,
-        left=0.0, right=1.0, bottom=0.0, top=0.9)
+    
+    ground_grid = gridspec.GridSpec(2, 4, figure=fig)
+
+    # Panel A
+    gs = gridspec.GridSpecFromSubplotSpec(
+    1, 1,
+    left=0.0, right=1.0, bottom=0.0, top=0.9, subplot_spec=gs0[0])
 
     ax = fig.add_subplot(gs[0])
 
     matplotlib.rc('font', family='sans', size=8)
     
-    # Create a new figure with GridSpec
-    fig = plt.figure(figsize=(8, 4))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1, 1], wspace=0.2)
-
-    # Panel A
-    ax_a = fig.add_subplot(gs[0, 0])
     m = cropped_video.mean(axis=0)
-    _ = ax_a.imshow(m, vmin=0, vmax=np.quantile(m, 0.999), cmap='gray')
-    ax_a.axis(False)
-    ax_a.set_title('mean fluorescence')
-    ax_a.title.set_size(8)
+    _ = ax.imshow(m, vmin=0, vmax=np.quantile(m, 0.999), cmap='gray')
+    ax.axis(False)
+    ax.set_title('mean fluorescence')
+    ax.title.set_size(8)
+    fig.savefig(os.path.join(output_dir, 'A.png'), dpi=300)
+
 
     # Panel B
-    ax_b = fig.add_subplot(gs[0, 1])
+    gs = gridspec.GridSpecFromSubplotSpec(2, 1, height_ratios=(5, 1),
+        left=0.08, right=0.75, bottom=0.15, top=0.85, hspace = 0.05, subplot_spec=gs0[1])
+
     x = np.arange(qs["min_intensity"], qs["max_intensity"])
 
-    axh = ax_b.inset_axes([0.1, 0.25, 0.8, 0.7])
-    axh.yaxis.tick_right()
-    axh.plot(x / binning, qs['counts'], 'k')
-    axh.spines['top'].set_visible(False)
-    axh.spines['right'].set_visible(False)
-    axh.spines['left'].set_visible(False)
-    axh.set_ylabel('density')
-    axh.set_xlabel('intensity')
-    axh.set_yticks([0])
-    axh.grid(True)
+    ah = fig.add_subplot(gs[1])
+    ah.yaxis.tick_right()
+    ah.plot(x/binning, qs['counts'], 'k')
+    ah.spines['top'].set_visible(False)
+    ah.spines['right'].set_visible(False)
+    #ah.spines['bottom'].set_visible(False)
+    ah.spines['left'].set_visible(False)
+    ah.set_ylabel('density')
+    ah.set_xlabel('intensity')
+    ah.set_yticks([0])
+    ah.grid(True)
 
-    axv = ax_b.inset_axes([0.1, 0.1, 0.8, 0.15])
-    axv.yaxis.tick_right()
+    ax = fig.add_subplot(gs[0])
+    ax.yaxis.tick_right()
     fit = qs["model"].predict(x.reshape(-1, 1))
-    axv.scatter(x / binning, np.float64(np.minimum(fit[-1] * 2, qs["variance"]) / binning), s=1, color='k', alpha=0.5)
-    axv.plot(x / binning, fit / binning, 'red', lw=1, alpha=1)
-    axv.yaxis.set_major_formatter(FormatStrFormatter('%1.0e'))
-    axv.spines['bottom'].set_visible(True)
-    plt.setp(axv.get_xticklabels(), visible=False)
-    axv.grid(True)
-    axv.set_ylabel('variance')
-    axv.spines['top'].set_visible(False)
-    axv.spines['right'].set_visible(False)
-    axv.spines['left'].set_visible(False)
+    ax.scatter(x/binning, np.float64(np.minimum(fit[-1]*2, qs["variance"])/binning), s=1, color='k', alpha=0.5)
+    ax.plot(x / binning, fit / binning, 'red', lw=1, alpha=1)
 
-    ax_b.set_title('sensitivity={sensitivity:0.1f}; zero level={zero_level:0.0f}'.format(**qs))
-    ax_b.title.set_size(8)
+    ax.yaxis.set_major_formatter(FormatStrFormatter('%1.0e'))
+    ax.spines['bottom'].set_visible(True)
+    plt.setp(ax.get_xticklabels(), visible=False)
 
-    # Adjust layout if needed
-    fig.tight_layout()
-
-    # Save the merged figure
-    fig.savefig(os.path.join(output_dir, 'merged_panels.png'), dpi=300)
+    ax.grid(True)
+    ax.set_ylabel('variance')
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.set_title('sensitivity={sensitivity:0.1f}; zero level={zero_level:0.0f}'.format(**qs))
+    ax.title.set_size(8)
+    fig.savefig(os.path.join(output_dir, 'B.png'), dpi=300)
 
     # Panel C
     fig = plt.figure(figsize=(1.8*1.3, 2.6))
