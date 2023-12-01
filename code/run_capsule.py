@@ -367,18 +367,18 @@ if __name__ == "__main__":
 
     gs = fig.add_gridspec(
         2, 2, 
-        left=0.60, right=0.9, bottom=0.05, top=0.85, height_ratios = [2, 1], hspace=0.5, wspace=0.2)
+        left=0.60, right=0.9, bottom=0.05, top=0.85, height_ratios = [1.5, 1], hspace=0.5, wspace=0.2)
 
     ax = fig.add_subplot(gs[0])
     ax.plot(LUT1)
     ax.grid(True)
-    ax.set_title('compressing LUT')
+    ax.set_title('comp. LUT')
 
     ax = fig.add_subplot(gs[1])
     ax.plot(LUT2[LUT1])
     ax.plot(np.r_[:LUT1.size], np.r_[:LUT1.size], 'k:')
     ax.grid(True)
-    ax.set_title('compression/decompression transform')
+    ax.set_title('comp/decomp. transform')
 
     ax = fig.add_subplot(gs[2])
     frame = np.maximum(0, np.minimum(scan[300,:,:], LUT1.size-1))
