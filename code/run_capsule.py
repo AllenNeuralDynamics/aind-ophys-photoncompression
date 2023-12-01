@@ -325,7 +325,7 @@ if __name__ == "__main__":
     imx = np.stack(((m-qs['zero_level'])/qs['sensitivity'], v/qs['sensitivity']/qs['sensitivity'], (m-qs['zero_level'])/qs['sensitivity']), axis=-1)
     img = ax.imshow(np.minimum(1, np.sqrt(0.01 + np.maximum(0, imx/np.quantile(imx, 0.9999))) - 0.1), cmap='PiYG')
 
-    cax = fig.add_axes([0.47, 0.55, 0.025, 0.4])
+    cax = fig.add_axes([0.47, 0.6, 0.025, 0.3])
     cbar = plt.colorbar(img, cax=cax, ticks=[0.2, .5, 0.8], shrink = 0.5)
     cbar.ax.set_yticklabels(['<< 1', '1', '>> 1'])  
     ax.axis(False)
@@ -347,7 +347,7 @@ if __name__ == "__main__":
     im[im<0] = np.nan
     img = ax.imshow(im, vmin=-0.0*mx, vmax=mx, cmap=cc.cm.CET_R4)
 
-    cax = fig.add_axes([0.47, 0.05, 0.025, 0.4])
+    cax = fig.add_axes([0.47, 0.1, 0.025, 0.3])
 
     plt.colorbar(img, cax=cax, shrink=0.5)
     ax.axis(False)
