@@ -10,8 +10,6 @@ from sklearn.linear_model import HuberRegressor as Regressor
 import imageio as io
 import matplotlib
 import colorcet as cc
-from matplotlib.ticker import FormatStrFormatter
-import matplotlib.gridspec as gridspec
 
 def subsample_and_crop_video(data_pointer, subsample, crop, start_frame=0, end_frame=-1):
     """Subsample and crop a video, cache results. Also functions as a data_pointer load.
@@ -260,19 +258,16 @@ if __name__ == "__main__":
 
     print(qs)
 
-    fig = plt.figure(figsize=(1.8, 2.6))
-    
-    ground_grid = gridspec.GridSpec(2, 4, figure=fig)
-
-    # Panel A
-    gs = gridspec.GridSpecFromSubplotSpec(
-    1, 1,
-    left=0.0, right=1.0, bottom=0.0, top=0.9, subplot_spec=ground_grid[0])
+    fig = plt.figure(figsize=(2, 8))
+    gs = fig.add_gridspec(
+        1, 1,
+        left=0.05, right=0.20, bottom=0.55, top=0.95)
 
     ax = fig.add_subplot(gs[0])
 
     matplotlib.rc('font', family='sans', size=8)
-    
+
+    # Panel A
     m = cropped_video.mean(axis=0)
     _ = ax.imshow(m, vmin=0, vmax=np.quantile(m, 0.999), cmap='gray')
     ax.axis(False)
@@ -282,10 +277,14 @@ if __name__ == "__main__":
 
 
     # Panel B
-    gs = gridspec.GridSpecFromSubplotSpec(2, 1, height_ratios=(5, 1),
-        left=0.08, right=0.75, bottom=0.15, top=0.85, hspace = 0.05, subplot_spec=ground_grid[1])
+    from matplotlib.ticker import FormatStrFormatter
+    matplotlib.rc('font', family='sans', size=8)
 
     x = np.arange(qs["min_intensity"], qs["max_intensity"])
+
+    gs = fig.add_gridspec(
+        2, 1, height_ratios=(5, 1),
+        left=0.05, right=0.2, bottom=0.05, top=0.45, hspace = 0.05)
 
     ah = fig.add_subplot(gs[1])
     ah.yaxis.tick_right()
