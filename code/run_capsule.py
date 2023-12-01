@@ -258,7 +258,7 @@ if __name__ == "__main__":
 
     print(qs)
 
-    fig = plt.figure(figsize=(8, 2))
+    fig = plt.figure(figsize=(7, 2))
     gs = fig.add_gridspec(
         1, 1,
         left=0.05, right=0.20, bottom=0.55, top=0.95)
