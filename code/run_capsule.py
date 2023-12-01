@@ -265,20 +265,20 @@ if __name__ == "__main__":
 
     ax = fig.add_subplot(gs[0])
 
-    matplotlib.rc('font', family='sans', size=8)
+    matplotlib.rc('font', family='sans', size=3)
 
     # Panel A
     m = cropped_video.mean(axis=0)
     _ = ax.imshow(m, vmin=0, vmax=np.quantile(m, 0.999), cmap='gray')
     ax.axis(False)
     ax.set_title('mean fluorescence')
-    ax.title.set_size(8)
+    ax.title.set_size(3)
     fig.savefig(os.path.join(output_dir, 'A.png'), dpi=300)
 
 
     # Panel B
     from matplotlib.ticker import FormatStrFormatter
-    matplotlib.rc('font', family='sans', size=8)
+    matplotlib.rc('font', family='sans', size=3)
 
     x = np.arange(qs["min_intensity"], qs["max_intensity"])
 
@@ -314,7 +314,7 @@ if __name__ == "__main__":
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
     ax.set_title('sensitivity={sensitivity:0.1f}; zero level={zero_level:0.0f}'.format(**qs))
-    ax.title.set_size(8)
+    ax.title.set_size(3)
     fig.savefig(os.path.join(output_dir, 'B.png'), dpi=300)
 
     # Panel C
