@@ -283,7 +283,7 @@ if __name__ == "__main__":
 
     gs = fig.add_gridspec(
         2, 1, height_ratios=(5, 1),
-        left=0.05, right=0.2, bottom=0.05, top=0.45, hspace = 0.05)
+        left=0.05, right=0.2, bottom=0.15, top=0.45, hspace = 0.05)
 
     ah = fig.add_subplot(gs[1])
     ah.yaxis.tick_right()
@@ -319,7 +319,7 @@ if __name__ == "__main__":
     # Panel C
     gs = fig.add_gridspec(
         1, 1, 
-        left=0.30, right=0.45, bottom=0.55, top=0.95)
+        left=0.30, right=0.45, bottom=0.55, top=0.85)
     ax = fig.add_subplot(gs[0])
     v = ((cropped_video[1:,:,:].astype('float64') - cropped_video[:-1,:,:]) ** 2/2).mean(axis=0)
     imx = np.stack(((m-qs['zero_level'])/qs['sensitivity'], v/qs['sensitivity']/qs['sensitivity'], (m-qs['zero_level'])/qs['sensitivity']), axis=-1)
@@ -339,7 +339,7 @@ if __name__ == "__main__":
 
     gs = fig.add_gridspec(
         1, 1, 
-        left=0.3, right=0.45, bottom=0.05, top=0.45)
+        left=0.3, right=0.45, bottom=0.15, top=0.45)
     ax = fig.add_subplot(gs[0])
 
     im = flux.max(axis=0)
@@ -367,7 +367,7 @@ if __name__ == "__main__":
 
     gs = fig.add_gridspec(
         2, 2, 
-        left=0.55, right=0.95, bottom=0.05, top=0.95)
+        left=0.55, right=0.95, bottom=0.15, top=0.85)
 
     ax = fig.add_subplot(gs[0])
     ax.plot(LUT1)
