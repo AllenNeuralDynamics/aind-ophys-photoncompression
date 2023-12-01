@@ -261,7 +261,7 @@ if __name__ == "__main__":
     fig = plt.figure(figsize=(1.8, 2.6))
     gs = fig.add_gridspec(
         1, 1,
-        left=0.0, right=1.0, bottom=0.0, top=0.9)
+        left=0.0, right=0.25, bottom=0.50, top=1)
 
     ax = fig.add_subplot(gs[0])
 
@@ -282,10 +282,9 @@ if __name__ == "__main__":
 
     x = np.arange(qs["min_intensity"], qs["max_intensity"])
 
-    fig = plt.figure(figsize=(2.2, 2.8))
     gs = fig.add_gridspec(
         2, 1, height_ratios=(5, 1),
-        left=0.08, right=0.75, bottom=0.15, top=0.85, hspace = 0.05)
+        left=0, right=0.25, bottom=0, top=0.5, hspace = 0.05)
 
     ah = fig.add_subplot(gs[1])
     ah.yaxis.tick_right()
@@ -319,11 +318,11 @@ if __name__ == "__main__":
     fig.savefig(os.path.join(output_dir, 'B.png'), dpi=300)
 
     # Panel C
-    fig = plt.figure(figsize=(1.8*1.3, 2.6))
     matplotlib.rc('font', family='sans', size=8)
     gs = fig.add_gridspec(
         1, 1, 
-        left=0.0, right=1.0/1.3, bottom=0.0, top=0.9)
+        left=0.25, right=0.5, bottom=0.5, top=1)
+        
     ax = fig.add_subplot(gs[0])
     v = ((cropped_video[1:,:,:].astype('float64') - cropped_video[:-1,:,:]) ** 2/2).mean(axis=0)
     imx = np.stack(((m-qs['zero_level'])/qs['sensitivity'], v/qs['sensitivity']/qs['sensitivity'], (m-qs['zero_level'])/qs['sensitivity']), axis=-1)
