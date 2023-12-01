@@ -258,14 +258,13 @@ if __name__ == "__main__":
 
     print(qs)
 
-    fig = plt.figure(figsize=(6, 2))
+    fig = plt.figure(figsize=(6, 2), constrained_layout=True)
     gs = fig.add_gridspec(
         1, 1,
-        left=0.05, right=0.20, bottom=0.55, top=0.95)
+        left=0.1, right=0.20, bottom=0.55, top=0.85)
 
     ax = fig.add_subplot(gs[0])
 
-    matplotlib.rc('font', family='sans', size=5)
 
     # Panel A
     m = cropped_video.mean(axis=0)
@@ -314,7 +313,7 @@ if __name__ == "__main__":
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
     ax.set_title('sensitivity={sensitivity:0.1f}; zero level={zero_level:0.0f}'.format(**qs))
-    ax.title.set_size(3)
+    ax.title.set_size(5)
     fig.savefig(os.path.join(output_dir, 'B.png'), dpi=300)
 
     # Panel C
@@ -391,7 +390,6 @@ if __name__ == "__main__":
     ax.imshow(LUT2[LUT1[frame]], cmap=cc.cm.CET_R4)
     ax.axis(False)
     ax.set_title('compressed-decompressed')
-    plt.tight_layout()
     fig.savefig(os.path.join(output_dir, 'F.png'), dpi=300)
 
     compressed = lookup(scan - zero, LUT1)
