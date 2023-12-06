@@ -186,7 +186,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Raw movie compression")
 
     parser.add_argument(
-        "-i", "--input-dir", type=str, help="Parent directory of raw movie", default="../data/"
+        "-i", "--input-dir", type=str, help="Parent directory of raw movie", default="../data/multiplane-ophys_472271_2019-10-01_13-15-34"
     )
 
     parser.add_argument(
@@ -227,9 +227,10 @@ if __name__ == "__main__":
 
     input_dir = Path(args.input_dir)
     output_dir = Path(args.output_dir)
-    h5_file = [i for i in list(input_dir.glob("*/*")) if "output.h5" in str(i)][0]
+    h5_file = [i for i in list(input_dir.glob("*/*/*")) if (".h5" in str(i) and not "stack" in str(i))][0]
+    print(h5_file)
     experiment_id = h5_file.name.split("_")[0]
-    output_dir = make_output_directory(output_dir, experiment_id)
+    output_dir = make_output_directory(output_dir, "photoncompression")
     # processing_json_fp = h5_file.parent / "processing.json"
 
     # with open(processing_json_fp, "r") as j:
@@ -239,7 +240,7 @@ if __name__ == "__main__":
     
     with h5py.File(h5_file, "r") as h5_pointer:
         data_pointer = h5_pointer[dataset_name]
-
+        print(data_pointer.shape)
         # in principle, this is done once to avoid loading the data multiple times
         # We generate a few smaller version of the big movie to use for metrics
         cropped_video = subsample_and_crop_video(
