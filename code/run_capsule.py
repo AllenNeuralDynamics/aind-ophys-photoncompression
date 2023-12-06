@@ -225,8 +225,8 @@ if __name__ == "__main__":
     # name of the dataset in the hdf5 file
     dataset_name = "data"
 
-    input_dir = Path(args.input_dir)
-    output_dir = Path(args.output_dir)
+    input_dir = Path(args.input-dir)
+    output_dir = Path(args.output-dir)
     input_dir = Path("../data/")
 
     print(list(input_dir.glob("*")))
