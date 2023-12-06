@@ -186,11 +186,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Raw movie compression")
 
     parser.add_argument(
-        "-i", "--input-dir", type=str, help="Parent directory of raw movie", default="../data/multiplane-ophys_472271_2019-10-01_13-15-34/pophys/ophys_experiment_959389424"
+        "-i", "--input_dir", type=str, help="Parent directory of raw movie", default="../data/multiplane-ophys_472271_2019-10-01_13-15-34/pophys/ophys_experiment_959389424"
     )
 
     parser.add_argument(
-        "-o", "--output-dir", type=str, help="Output directory", default="/results/"
+        "-o", "--output_dir", type=str, help="Output directory", default="/results/"
     )
 
     parser.add_argument(
@@ -225,8 +225,8 @@ if __name__ == "__main__":
     # name of the dataset in the hdf5 file
     dataset_name = "data"
 
-    input_dir = Path(args.input-dir)
-    output_dir = Path(args.output-dir)
+    input_dir = Path(args.input_dir)
+    output_dir = Path(args.output_dir)
     input_dir = Path("../data/")
 
     print(list(input_dir.glob("*")))
