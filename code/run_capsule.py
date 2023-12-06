@@ -228,6 +228,8 @@ if __name__ == "__main__":
     input_dir = Path(args.input_dir)
     output_dir = Path(args.output_dir)
     
+    print(list(input_dir.glob("*")))
+
     print(list(input_dir.glob("*/*/*")))
 
     h5_file = [i for i in list(input_dir.glob("*/*/*")) if (".h5" in str(i) and not "stack" in str(i))][0]
