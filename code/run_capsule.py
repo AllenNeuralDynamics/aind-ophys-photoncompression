@@ -190,6 +190,10 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
+        "-p", "--plane_number", type=str, help="index of plane", default=0
+    )
+
+    parser.add_argument(
         "-o", "--output_dir", type=str, help="Output directory", default="/results/"
     )
 
@@ -225,13 +229,15 @@ if __name__ == "__main__":
     # name of the dataset in the hdf5 file
     dataset_name = "data"
 
+    plane_number = args.plane_number
+
     input_dir = Path(args.input_dir)
     output_dir = Path(args.output_dir)
 
     print("list files found:")
     print(list(input_dir.glob("*")))
 
-    h5_file = [i for i in list(input_dir.glob("*")) if (".h5" in str(i) and not "stack" in str(i))][0]
+    h5_file = [i for i in list(input_dir.glob("*")) if (".h5" in str(i) and not "stack" in str(i))][plane_number]
 
     print("h5 file used:")
     print(h5_file)
