@@ -227,11 +227,13 @@ if __name__ == "__main__":
 
     input_dir = Path(args.input_dir)
     output_dir = Path(args.output_dir)
-    input_dir = Path("../data/")
 
+    print("list files found:")
     print(list(input_dir.glob("*")))
 
     h5_file = [i for i in list(input_dir.glob("*")) if (".h5" in str(i) and not "stack" in str(i))][0]
+
+    print("h5 file used:")
     print(h5_file)
     experiment_id = h5_file.name.split("_")[0]
     output_dir = make_output_directory(output_dir, "photoncompression")
