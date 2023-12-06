@@ -233,7 +233,7 @@ if __name__ == "__main__":
 
     print(list(input_dir.glob("*/*/*")))
 
-    h5_file = [i for i in list(input_dir.glob("*/*/*/*")) if (".h5" in str(i) and not "stack" in str(i))][0]
+    h5_file = [i for i in list(input_dir.glob("*")) if (".h5" in str(i) and not "stack" in str(i))][0]
     print(h5_file)
     experiment_id = h5_file.name.split("_")[0]
     output_dir = make_output_directory(output_dir, "photoncompression")
