@@ -186,7 +186,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Raw movie compression")
 
     parser.add_argument(
-        "-i", "--input_dir", type=str, help="Parent directory of raw movie", default="../data/multiplane-ophys_472271_2019-10-01_13-15-34/pophys/ophys_experiment_959389424"
+        "-i", "--input_dir", type=str, help="Parent directory of raw movie", default="../data/multiplane-ophys_472271_2019-10-01_13-15-34/pophys/ophys_experiment_959389424/"
     )
 
     parser.add_argument(
@@ -230,8 +230,6 @@ if __name__ == "__main__":
     input_dir = Path("../data/")
 
     print(list(input_dir.glob("*")))
-
-    print(list(input_dir.glob("*/*/*")))
 
     h5_file = [i for i in list(input_dir.glob("*")) if (".h5" in str(i) and not "stack" in str(i))][0]
     print(h5_file)
