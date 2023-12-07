@@ -186,15 +186,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Raw movie compression")
 
     parser.add_argument(
-        "-i", "--input_dir", type=str, help="Parent directory of raw movie", default="../data/multiplane-ophys_472271_2019-10-01_13-15-34/pophys/ophys_experiment_959389424/"
+        "--input_dir", type=str, help="Parent directory of raw movie", default="../data/multiplane-ophys_472271_2019-10-01_13-15-34/pophys/"
     )
 
     parser.add_argument(
-        "-p", "--plane_number", type=str, help="index of plane", default=0
+        "--plane_number", type=str, help="index of plane", default=0
     )
 
     parser.add_argument(
-        "-o", "--output_dir", type=str, help="Output directory", default="/results/"
+        "--output_dir", type=str, help="Output directory", default="/results/"
     )
 
     parser.add_argument(
@@ -237,7 +237,7 @@ if __name__ == "__main__":
     print("list files found:")
     print(list(input_dir.glob("*")))
 
-    h5_file = [i for i in list(input_dir.glob("*")) if (".h5" in str(i) and not "stack" in str(i))][plane_number]
+    h5_file = [i for i in list(input_dir.glob("*/*")) if (".h5" in str(i) and not "stack" in str(i))][plane_number]
 
     print("h5 file used:")
     print(h5_file)
