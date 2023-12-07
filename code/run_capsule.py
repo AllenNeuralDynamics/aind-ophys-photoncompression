@@ -12,6 +12,38 @@ import matplotlib
 import colorcet as cc
 import glob
 
+def get_frame_rate_from_sync(sync_file, platform_data) -> float:
+    """Calculate frame rate from sync file
+    Parameters
+    ----------
+    sync_file: str
+        path to sync file
+    platform_data: dict
+        platform data from platform.json
+    Returns
+    -------
+    frame_rate_hz: float
+        frame rate in Hz
+    """
+    labels = ["vsync_2p", "2p_vsync"]  # older versions of sync may 2p_vsync label
+    imaging_groups = len(
+        platform_data["imaging_plane_groups"]
+    )  # Number of imaging plane groups for frequency calculation
+    frame_rate_hz = None
+    for i in labels:
+        sync_data = Sync(sync_file)
+        try:
+            rising_edges = sync_data.get_rising_edges(i, units="seconds")
+            image_freq = 1 / (np.mean(np.diff(rising_edges)))
+            frame_rate_hz = image_freq / imaging_groups
+
+        except ValueError:
+            pass
+    sync_data.close()
+    if not frame_rate_hz:
+        raise ValueError(f"Frame rate no acquired, line labels: {sync_data.line_labels}")
+    return frame_rate_hz
+
 def subsample_and_crop_video(data_pointer, subsample, crop, start_frame=0, end_frame=-1):
     """Subsample and crop a video, cache results. Also functions as a data_pointer load.
 
@@ -246,15 +278,25 @@ if __name__ == "__main__":
 
     experiment_id = h5_file.name.split("_")[0].split(".")[0]
     print(experiment_id)
-    platform_file = experiment_id + "_platform.json"
-    processing_json_fp = h5_file.parent / platform_file
-    with open(processing_json_fp, "r") as j:
-        data = json.load(j)
-        
-    print(data)
 
-    frame_rate = data["data_processes"][0]["parameters"]["movie_frame_rate_hz"]
+    platform_json = experiment_id + "_platform.json"
+    platform_json = h5_file.parent / platform_file
+
+    file_splitting_json = list(h5_file.parent.glob("MESOSCOPE_FILE_*"))[0]
+    with open(platform_json, "r") as j:
+        platform_data = json.load(j)
+    sync_file = [i for i in session_dir.glob(platform_data["sync_file"])]
+
+    # try to get the framerate from the platform file else use sync file
+    try:
+        frame_rate_hz = platform_data["imaging_plane_groups"][0]["acquisition_framerate_Hz"]
+    except KeyError:
+        frame_rate_hz = get_frame_rate_from_sync(sync_file, platform_data)
+
+    frame_rate = frame_rate_hz
     
+    print("frame rate:" + frame_rate)
+
     with h5py.File(h5_file, "r") as h5_pointer:
         data_pointer = h5_pointer[dataset_name]
         print(data_pointer.shape)
