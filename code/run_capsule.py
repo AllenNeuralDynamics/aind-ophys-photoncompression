@@ -471,6 +471,7 @@ if __name__ == "__main__":
     metrics["sensitivity"] = qs["sensitivity"]
     metrics["zero_level"] = qs["zero_level"]
     metrics["experiment_id"] = experiment_id
+    metrics["frame_rate"] = frame_rate
 
     # We save the metrics to a json file
     with open(os.path.join(output_dir, "photoncompression_metrics.json"), "w") as f:
