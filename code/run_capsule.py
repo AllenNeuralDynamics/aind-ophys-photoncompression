@@ -10,6 +10,7 @@ from sklearn.linear_model import HuberRegressor as Regressor
 import imageio as io
 import matplotlib
 import colorcet as cc
+import glob
 
 def subsample_and_crop_video(data_pointer, subsample, crop, start_frame=0, end_frame=-1):
     """Subsample and crop a video, cache results. Also functions as a data_pointer load.
@@ -186,8 +187,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Raw movie compression")
 
     parser.add_argument(
-        "--inputdir", type=str, help="Parent directory of raw movie", default="../data/multiplane-ophys_472271_2019-10-01_13-15-34/pophys/"
+        "-i", "--input-searchpath", type=str, help="Regular expression to input hdf5 movie. The first one found is picked", default="../data/*/*/*.h5"
     )
+
+    list_path = glob.glob(input-searchpath)
+    h5_file = [i for i in list_path if (".h5" in str(i) and not "stack" in str(i))][plane_number]
 
     parser.add_argument(
         "--plane_number", type=int, help="index of plane", default=0
@@ -234,21 +238,21 @@ if __name__ == "__main__":
     inputdir = Path(args.inputdir)
     output_dir = Path(args.output_dir)
 
+    list_files = glob.glob(input-searchpath)
     print("list files found:")
-    print(list(inputdir.glob("*")))
-
-    h5_file = [i for i in list(inputdir.glob("*/*")) if (".h5" in str(i) and not "stack" in str(i))][plane_number]
+    print(list_files)
+    h5_file = Path(list_files[plane_number])
 
     print("h5 file used:")
     print(h5_file)
     experiment_id = h5_file.name.split("_")[0]
     output_dir = make_output_directory(output_dir, "photoncompression")
-    # processing_json_fp = h5_file.parent / "processing.json"
 
-    # with open(processing_json_fp, "r") as j:
-    #    data = json.load(j)
-
-    frame_rate = 10 # data["data_processes"][0]["parameters"]["movie_frame_rate_hz"]
+    experiment_id = h5_file.name.split("_")[0]
+    processing_json_fp = h5_file.parent / "processing.json"
+    with open(processing_json_fp, "r") as j:
+        data = json.load(j)
+    frame_rate = data["data_processes"][0]["parameters"]["movie_frame_rate_hz"]
     
     with h5py.File(h5_file, "r") as h5_pointer:
         data_pointer = h5_pointer[dataset_name]
