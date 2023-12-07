@@ -411,10 +411,12 @@ if __name__ == "__main__":
     qs['compression_ratio'] = np.prod(scan.shape)*2 / os.path.getsize(gif_path)
 
     # We remove non serializable objects. 
-    qs.pop("model")
-    qs.pop("counts")
-    qs.pop("variance")
+    metrics = {}
+    metrics["max_intensity"] = qs["max_intensity"]
+    metrics["min_intensity"] = qs["min_intensity"]
+    metrics["sensitivity"] = qs["sensitivity"]
+    metrics["zero_level"] = qs["zero_level"]
 
     # We save the metrics to a json file
     with open(os.path.join(output_dir, "photoncompression_metrics.json"), "w") as f:
-        json.dump(qs, f, indent=4)
+        json.dump(metrics, f, indent=4)
