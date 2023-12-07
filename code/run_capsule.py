@@ -1,4 +1,4 @@
-import numpy as np
+=import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 import h5py
@@ -407,3 +407,9 @@ if __name__ == "__main__":
     gif_path = os.path.join(output_dir, 'compressed.gif')
     save_movie(compressed, gif_path, scale=255//np.max(compressed))        
     print(f'Compression ratio: {np.prod(scan.shape)*2 / os.path.getsize(gif_path):0.2f}')
+
+    qs['compression_ratio'] = np.prod(scan.shape)*2 / os.path.getsize(gif_path)
+
+    # We save the metrics to a json file
+    with open(os.path.join(output_dir, "photoncompression_metrics.json"), "w") as f:
+        json.dump(qs, f, indent=4)
