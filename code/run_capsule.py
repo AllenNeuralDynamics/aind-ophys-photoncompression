@@ -285,7 +285,7 @@ if __name__ == "__main__":
     file_splitting_json = list(h5_file.parent.glob("MESOSCOPE_FILE_*"))[0]
     with open(platform_json, "r") as j:
         platform_data = json.load(j)
-    sync_file = [i for i in session_dir.glob(platform_data["sync_file"])]
+    sync_file = [i for i in h5_file.parent.glob(platform_data["sync_file"])]
 
     # try to get the framerate from the platform file else use sync file
     try:
