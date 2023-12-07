@@ -245,7 +245,7 @@ if __name__ == "__main__":
     output_dir = make_output_directory(output_dir, "photoncompression")
 
     experiment_id = h5_file.name.split("_")[0]
-    processing_json_fp = h5_file.parent.parent / "processing.json"
+    processing_json_fp = h5_file.parent.parent / "data_description.json"
     with open(processing_json_fp, "r") as j:
         data = json.load(j)
         
