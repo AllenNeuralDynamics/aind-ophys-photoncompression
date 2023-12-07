@@ -268,7 +268,10 @@ if __name__ == "__main__":
     output_dir = Path(args.output_dir)
 
     list_files = glob.glob(args.input_searchpath)
-    list_files = [indiv_path for indiv_path in list_files if not "stack" in indiv_path:]
+
+    # We remove stack files
+    list_files = [indiv_path for indiv_path in list_files if not "stack" in indiv_path]
+
     print("list files found:")
     print(list_files)
     h5_file = Path(list_files[plane_number])
@@ -467,6 +470,7 @@ if __name__ == "__main__":
     metrics["min_intensity"] = int(qs["min_intensity"])
     metrics["sensitivity"] = qs["sensitivity"]
     metrics["zero_level"] = qs["zero_level"]
+    metrics["experiment_id"] = experiment_id
 
     # We save the metrics to a json file
     with open(os.path.join(output_dir, "photoncompression_metrics.json"), "w") as f:
