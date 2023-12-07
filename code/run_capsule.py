@@ -248,6 +248,9 @@ if __name__ == "__main__":
     processing_json_fp = h5_file.parent.parent / "processing.json"
     with open(processing_json_fp, "r") as j:
         data = json.load(j)
+        
+    print(data)
+
     frame_rate = data["data_processes"][0]["parameters"]["movie_frame_rate_hz"]
     
     with h5py.File(h5_file, "r") as h5_pointer:
