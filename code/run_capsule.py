@@ -280,7 +280,7 @@ if __name__ == "__main__":
     print(experiment_id)
 
     platform_json = experiment_id + "_platform.json"
-    platform_json = h5_file.parent / platform_file
+    platform_json = h5_file.parent / platform_json
 
     file_splitting_json = list(h5_file.parent.glob("MESOSCOPE_FILE_*"))[0]
     with open(platform_json, "r") as j:
