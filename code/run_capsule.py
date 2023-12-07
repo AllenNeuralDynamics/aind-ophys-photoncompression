@@ -190,9 +190,6 @@ if __name__ == "__main__":
         "-i", "--input-searchpath", type=str, help="Regular expression to input hdf5 movie. The first one found is picked", default="../data/*/*/*.h5"
     )
 
-    list_path = glob.glob(input-searchpath)
-    h5_file = [i for i in list_path if (".h5" in str(i) and not "stack" in str(i))][plane_number]
-
     parser.add_argument(
         "--plane_number", type=int, help="index of plane", default=0
     )
@@ -235,7 +232,6 @@ if __name__ == "__main__":
 
     plane_number = args.plane_number
 
-    inputdir = Path(args.inputdir)
     output_dir = Path(args.output_dir)
 
     list_files = glob.glob(input-searchpath)
