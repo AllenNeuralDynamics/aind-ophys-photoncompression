@@ -244,7 +244,7 @@ if __name__ == "__main__":
     experiment_id = h5_file.name.split("_")[0]
     output_dir = make_output_directory(output_dir, "photoncompression")
 
-    experiment_id = h5_file.name.split("_")[0]
+    experiment_id = h5_file.name.split("_")[0].split(".")[0]
     print(experiment_id)
     processing_json_fp = h5_file.parent / str(experiment_id)+"_platform.json"
     with open(processing_json_fp, "r") as j:
