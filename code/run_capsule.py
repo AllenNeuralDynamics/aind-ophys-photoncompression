@@ -11,6 +11,7 @@ import imageio as io
 import matplotlib
 import colorcet as cc
 import glob
+from sync_dataset import Sync
 
 def get_frame_rate_from_sync(sync_file, platform_data) -> float:
     """Calculate frame rate from sync file
