@@ -220,7 +220,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Raw movie compression")
 
     parser.add_argument(
-        "-i", "--input_searchpath", type=str, help="Regular expression to input hdf5 movie. The first one found is picked", default="../data/*/*/*.h5"
+        "-i", "--input_searchpath", type=str, help="Regular expression to input hdf5 movie. The first one found is picked", default="../data/*/*/*/*.h5"
     )
 
     parser.add_argument(
