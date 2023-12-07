@@ -412,8 +412,8 @@ if __name__ == "__main__":
 
     # We remove non serializable objects. 
     metrics = {}
-    metrics["max_intensity"] = qs["max_intensity"]
-    metrics["min_intensity"] = qs["min_intensity"]
+    metrics["max_intensity"] = int(qs["max_intensity"])
+    metrics["min_intensity"] = int(qs["min_intensity"])
     metrics["sensitivity"] = qs["sensitivity"]
     metrics["zero_level"] = qs["zero_level"]
 
