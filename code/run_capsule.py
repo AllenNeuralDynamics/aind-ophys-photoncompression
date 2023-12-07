@@ -246,8 +246,8 @@ if __name__ == "__main__":
 
     experiment_id = h5_file.name.split("_")[0].split(".")[0]
     print(experiment_id)
-    platform_file = experiment_id + "_platform.json"
-    processing_json_fp = h5_file.parent.parent / "processing.json"
+    platform_file = "MESOSCOPE_FILE_SPLITTING_QUEUE_"+experiment_id + "_input.json"
+    processing_json_fp = h5_file.parent.parent / platform_file
     with open(processing_json_fp, "r") as j:
         data = json.load(j)
         
