@@ -288,12 +288,12 @@ if __name__ == "__main__":
         platform_data = json.load(j)
     sync_file = [i for i in h5_file.parent.glob(platform_data["sync_file"])]
     print(sync_file)
-    
+
     # try to get the framerate from the platform file else use sync file
     try:
         frame_rate_hz = platform_data["imaging_plane_groups"][0]["acquisition_framerate_Hz"]
     except KeyError:
-        frame_rate_hz = get_frame_rate_from_sync(sync_file, platform_data)
+        frame_rate_hz = get_frame_rate_from_sync(str(sync_file), platform_data)
 
     frame_rate = frame_rate_hz
     
