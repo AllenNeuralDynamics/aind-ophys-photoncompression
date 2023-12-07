@@ -297,7 +297,7 @@ if __name__ == "__main__":
 
     frame_rate = frame_rate_hz
     
-    print("frame rate:" + frame_rate)
+    print("frame rate:" + str(frame_rate))
 
     with h5py.File(h5_file, "r") as h5_pointer:
         data_pointer = h5_pointer[dataset_name]
