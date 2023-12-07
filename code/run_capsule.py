@@ -246,7 +246,8 @@ if __name__ == "__main__":
 
     experiment_id = h5_file.name.split("_")[0].split(".")[0]
     print(experiment_id)
-    processing_json_fp = h5_file.parent / str(experiment_id)+"_platform.json"
+    platform_file = experiment_id + "_platform.json"
+    processing_json_fp = h5_file.parent / platform_file
     with open(processing_json_fp, "r") as j:
         data = json.load(j)
         
