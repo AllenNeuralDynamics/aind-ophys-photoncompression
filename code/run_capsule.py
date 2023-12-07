@@ -412,7 +412,9 @@ if __name__ == "__main__":
 
     # We remove non serializable objects. 
     qs.pop("model")
-    
+    qs.pop("counts")
+    qs.pop("variance")
+
     # We save the metrics to a json file
     with open(os.path.join(output_dir, "photoncompression_metrics.json"), "w") as f:
         json.dump(qs, f, indent=4)
