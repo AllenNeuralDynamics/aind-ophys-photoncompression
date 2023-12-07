@@ -281,9 +281,9 @@ if __name__ == "__main__":
     print(experiment_id)
 
     session_folder = h5_file.parent.parent
-    platform_json = str(session_folder.glob("*platform_json"))
+    platform_json = session_folder.glob("*platform.json")
     print(platform_json)
-    
+
     file_splitting_json = list(session_folder.glob("MESOSCOPE_FILE_*"))[0]
     with open(platform_json, "r") as j:
         platform_data = json.load(j)
