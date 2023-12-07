@@ -268,6 +268,7 @@ if __name__ == "__main__":
     output_dir = Path(args.output_dir)
 
     list_files = glob.glob(args.input_searchpath)
+    list_files = [indiv_path for indiv_path in list_files if not "stack" in indiv_path:]
     print("list files found:")
     print(list_files)
     h5_file = Path(list_files[plane_number])
